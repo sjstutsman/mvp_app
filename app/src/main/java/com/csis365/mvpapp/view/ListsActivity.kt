@@ -50,7 +50,9 @@ class ListsActivity : AppCompatActivity(), ListsView {
 
     override fun bindCategories(categories: List<String>) {
         rvCategories.layoutManager = LinearLayoutManager(this)
-        rvCategories.adapter = CategoriesAdapter(categories)
+        rvCategories.adapter = CategoriesAdapter(categories) { category ->
+            presenter.getJoke(category)
+        }
     }
 
     override fun showError(errorMessage: String) {

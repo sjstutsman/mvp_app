@@ -35,6 +35,31 @@ class JokeService {
 
     }
 
+    fun getJoke(
+        category: String,
+        successCallback: (Joke) -> Unit,
+        failureCallback: (errorMessage: String) -> Unit
+    ) {
+        api.getJoke(category).enqueue(object : Callback<Joke> {
+            override fun onResponse(call: Call<Joke>, response: Response<Joke>) {
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        successCallback(it)
+                    } ?: run {
+                        failureCallback("No jokes returned from service")
+                    }
+                } else {
+                    failureCallback("Error getting jokes")
+                }
+            }
+
+            override fun onFailure(call: Call<Joke>, t: Throwable) {
+                failureCallback("Error: ${t.message}")
+            }
+        })
+
+    }
+
     fun getCategories(
         successCallback: (List<String>) -> Unit,
         failureCallback: (errorMessage: String) -> Unit

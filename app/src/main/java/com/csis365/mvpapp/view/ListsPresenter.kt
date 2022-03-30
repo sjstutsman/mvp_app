@@ -14,6 +14,20 @@ class ListsPresenter(val view: ListsView) {
         getCategories()
     }
 
+    fun getJoke(category: String) {
+        jokeService.getJoke(
+            category,
+
+            successCallback = { joke ->
+                view.bindJoke(joke)
+            },
+
+            failureCallback = { errorMessage ->
+                view.showError(errorMessage)
+            }
+        )
+    }
+
     private fun getFruits() {
         fruitService.getFruits(
             successCallback = { fruits ->
