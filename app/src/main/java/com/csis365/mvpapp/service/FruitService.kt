@@ -15,10 +15,10 @@ class FruitService {
         failureCallback: (errorMessage: String) -> Unit
     ) {
         api.getAllFruits().enqueue(object : Callback<List<Fruit>> {
+
             override fun onResponse(call: Call<List<Fruit>>, response: Response<List<Fruit>>) {
                 if (response.isSuccessful) {
-                    val fruits = response.body()
-                    fruits?.let {
+                    response.body()?.let {
                         successCallback(it)
                     } ?: run {
                         failureCallback("No fruits returned from service")

@@ -9,9 +9,26 @@ class ListsPresenter(val view: ListsView) {
     val jokeService = JokeService()
 
     fun start() {
+        getFruits()
+        getJokes()
+    }
+
+    private fun getFruits() {
         fruitService.getFruits(
             successCallback = { fruits ->
                 view.bindFruits(fruits)
+            },
+
+            failureCallback = { errorMessage ->
+                view.showError(errorMessage)
+            }
+        )
+    }
+
+    private fun getJokes() {
+        jokeService.getJoke(
+            successCallback = { joke ->
+                view.bindJoke(joke)
             },
 
             failureCallback = { errorMessage ->
