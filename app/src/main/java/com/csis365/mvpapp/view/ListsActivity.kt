@@ -23,6 +23,7 @@ class ListsActivity : AppCompatActivity(), ListsView {
     lateinit var ivJokeIcon: ImageView
     lateinit var tvJokeOfTheDay: TextView
     lateinit var rvFruits: RecyclerView
+    lateinit var rvCategories: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +48,11 @@ class ListsActivity : AppCompatActivity(), ListsView {
         tvJokeOfTheDay.text = joke.joke
     }
 
+    override fun bindCategories(categories: List<String>) {
+        rvCategories.layoutManager = LinearLayoutManager(this)
+        rvCategories.adapter = CategoriesAdapter(categories)
+    }
+
     override fun showError(errorMessage: String) {
         Snackbar.make(container, errorMessage, Snackbar.LENGTH_LONG).show()
     }
@@ -56,5 +62,6 @@ class ListsActivity : AppCompatActivity(), ListsView {
         ivJokeIcon = findViewById(R.id.iv_joke_icon)
         tvJokeOfTheDay = findViewById(R.id.tv_joke_of_the_day)
         rvFruits = findViewById(R.id.rv_fruits)
+        rvCategories = findViewById(R.id.rv_categories)
     }
 }

@@ -7,4 +7,5 @@ interface ListsView {
     fun bindFruits(fruits: List<Fruit>)
     fun bindJoke(joke: Joke)
     fun showError(errorMessage: String)
+    fun bindCategories(categories: List<String>)
 }

@@ -8,5 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="small_separator">#440905</color>
+    <color name="small_separator_alt">@color/teal_700</color>
     <color name="large_separator">#520061</color>
 </resources>

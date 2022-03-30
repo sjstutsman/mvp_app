@@ -10,7 +10,8 @@ class ListsPresenter(val view: ListsView) {
 
     fun start() {
         getFruits()
-        getJokes()
+        getJoke()
+        getCategories()
     }
 
     private fun getFruits() {
@@ -25,10 +26,22 @@ class ListsPresenter(val view: ListsView) {
         )
     }
 
-    private fun getJokes() {
+    private fun getJoke() {
         jokeService.getJoke(
             successCallback = { joke ->
                 view.bindJoke(joke)
+            },
+
+            failureCallback = { errorMessage ->
+                view.showError(errorMessage)
+            }
+        )
+    }
+
+    private fun getCategories() {
+        jokeService.getCategories(
+            successCallback = { categories ->
+                view.bindCategories(categories)
             },
 
             failureCallback = { errorMessage ->
