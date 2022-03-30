@@ -13,8 +13,8 @@
 
     <View
         android:layout_width="2dp"
+        android:background="@color/large_separator"
         android:layout_height="match_parent" />
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_jokes"
