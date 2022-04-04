@@ -17,7 +17,7 @@ import com.google.android.material.snackbar.Snackbar
 
 class ListsActivity : AppCompatActivity(), ListsView {
 
-    val presenter = ListsPresenter(this)
+    val presenter = ListsPresenterFactory.createPresenter(this)
 
     lateinit var container: View
     lateinit var ivJokeIcon: ImageView
