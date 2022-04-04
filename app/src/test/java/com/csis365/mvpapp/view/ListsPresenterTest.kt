@@ -35,7 +35,7 @@ class ListsPresenterTest {
 
         presenter.start()
 
-        verify { view.bindFruits(any()) }
+        verify { view.bindFruits(fruits) }
     }
 
 
