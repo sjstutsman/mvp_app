@@ -12,12 +12,13 @@ import com.bumptech.glide.Glide
 import com.csis365.mvpapp.R
 import com.csis365.mvpapp.dto.Fruit
 import com.csis365.mvpapp.dto.Joke
+import com.csis365.mvpapp.service.FruitService
 import com.google.android.material.snackbar.Snackbar
 
 
 class ListsActivity : AppCompatActivity(), ListsView {
 
-    val presenter = ListsPresenterFactory.createPresenter(this)
+    val presenter = ListsPresenterFactory.createPresenter(this, this)
 
     lateinit var container: View
     lateinit var ivJokeIcon: ImageView
