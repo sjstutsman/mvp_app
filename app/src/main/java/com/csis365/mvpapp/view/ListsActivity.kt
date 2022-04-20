@@ -1,70 +1,80 @@
 package com.csis365.mvpapp.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import android.widget.FrameLayout
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.csis365.mvpapp.R
-import com.csis365.mvpapp.dto.Fruit
-import com.csis365.mvpapp.dto.Joke
-import com.csis365.mvpapp.service.FruitService
-import com.google.android.material.snackbar.Snackbar
+import com.csis365.mvpapp.view.a.AFragment
+import com.csis365.mvpapp.view.b.BFragment
+import com.csis365.mvpapp.view.c.CFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
-class ListsActivity : AppCompatActivity(), ListsView {
+class ListsActivity : AppCompatActivity() {
 
-    val presenter = ListsPresenterFactory.createPresenter(this, this)
-
-    lateinit var container: View
-    lateinit var ivJokeIcon: ImageView
-    lateinit var tvJokeOfTheDay: TextView
-    lateinit var rvFruits: RecyclerView
-    lateinit var rvCategories: RecyclerView
+    lateinit var fragmentContainer: FrameLayout
+    lateinit var bottomBar: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lists)
-
         bindViews()
-
-        presenter.start()
-    }
-
-    override fun bindFruits(fruits: List<Fruit>) {
-        rvFruits.layoutManager = LinearLayoutManager(this)
-        rvFruits.adapter = FruitListAdapter(fruits)
-    }
-
-    override fun bindJoke(joke: Joke) {
-        Glide
-            .with(this)
-            .load(joke.iconUrl)
-            .placeholder(R.drawable.ic_launcher_background)
-            .into(ivJokeIcon)
-        tvJokeOfTheDay.text = joke.joke
-    }
-
-    override fun bindCategories(categories: List<String>) {
-        rvCategories.layoutManager = LinearLayoutManager(this)
-        rvCategories.adapter = CategoriesAdapter(categories) { category ->
-            presenter.getJoke(category)
-        }
-    }
-
-    override fun showError(errorMessage: String) {
-        Snackbar.make(container, errorMessage, Snackbar.LENGTH_LONG).show()
+        setupNavBar()
     }
 
     private fun bindViews() {
-        container = findViewById(R.id.container)
-        ivJokeIcon = findViewById(R.id.iv_joke_icon)
-        tvJokeOfTheDay = findViewById(R.id.tv_joke_of_the_day)
-        rvFruits = findViewById(R.id.rv_fruits)
-        rvCategories = findViewById(R.id.rv_categories)
+        fragmentContainer = findViewById(R.id.frame_container)
+        bottomBar = findViewById(R.id.bottom_nav_view)
+        listOf("arst").first()
+    }
+
+    private fun setupNavBar() {
+        bottomBar.setOnItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                // This first case will prevent us from opening a page if it's already selected
+                bottomBar.selectedItemId -> true
+
+                R.id.action_lists -> openListsPage()
+                R.id.action_fragment_a -> openPageA()
+                R.id.action_fragment_b -> openPageB()
+                R.id.action_fragment_c -> openPageC()
+                else -> throw IllegalStateException("Unknown action id, cannot open any fragment")
+            }
+            true
+        }
+
+        openListsPage()
+    }
+
+
+    private fun openListsPage() {
+        val fragment = ListsFragment.newInstance()
+        openFragment(fragment)
+    }
+
+    private fun openPageA() {
+        val fragment = AFragment.newInstance()
+        openFragment(fragment)
+    }
+
+    private fun openPageB() {
+        val fragment = BFragment.newInstance()
+        openFragment(fragment)
+    }
+
+    private fun openPageC() {
+        val fragment = CFragment.newInstance()
+        openFragment(fragment)
+    }
+
+    private fun openFragment(fragment: Fragment) {
+        val transaction = supportFragmentManager
+            .beginTransaction()
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            .replace(R.id.frame_container, fragment, null)
+
+        transaction.commit()
     }
 }

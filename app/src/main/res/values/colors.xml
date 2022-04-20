@@ -10,4 +10,9 @@
     <color name="small_separator">#440905</color>
     <color name="small_separator_alt">@color/teal_700</color>
     <color name="large_separator">#520061</color>
+
+    <color name="a_background">#abcdef</color>
+    <color name="b_background">#cdefab</color>
+    <color name="c_background">#fecdab</color>
+    <color name="nav_bar_background">#aaaaaa</color>
 </resources>

@@ -78,6 +78,5 @@ class ListsPresenter(
         editor.commit()
 
         val recalledString = sharedPreferences.getString("unique key", "default")
-        view.showError(recalledString!!)
     }
 }

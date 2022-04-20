@@ -8,4 +8,6 @@
     <dimen name="text_header">18sp</dimen>
     <dimen name="small_padding">8dp</dimen>
     <dimen name="icon_height">120dp</dimen>
+    <dimen name="height_nav_bar">56dp</dimen>
+    <dimen name="font_size_huge">88sp</dimen>
 </resources>

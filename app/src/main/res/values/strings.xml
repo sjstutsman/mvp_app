@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">MvpApp</string>
     <string name="joke_of_the_day">Joke of the day!</string>
+
+    <string name="lists">Lists</string>
+    <string name="page_a">A</string>
+    <string name="page_b">B</string>
+    <string name="page_c">C</string>
+
+    <string name="a">A</string>
+    <string name="b">B</string>
+    <string name="c">C</string>
 </resources>
